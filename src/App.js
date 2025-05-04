@@ -1,31 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Container, Row, Col, Nav } from 'react-bootstrap';
 import TodoForm from './components/TodoForm';
 import TaskList from './components/TaskList';
 import './styles/App.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { addTask, removeTask } from './tasksSlice';
 
 function App() {
-  const [tasks, setTasks] = useState(() => {
-    const savedTasks = localStorage.getItem('tasks');
-    if (savedTasks) {
-      return JSON.parse(savedTasks);
-    } else {
-      return [];
-    }
-  });
-
+  const tasks = useSelector(state => state.tasks);
+  const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState('tasks');
 
-  useEffect(() => {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-  }, [tasks]);
-
-  const addTask = (task) => {
-    setTasks([...tasks, task]);
+  const handleAddTask = (task) => {
+    dispatch(addTask(task));
   };
 
-  const removeTask = (id) => {
-    setTasks(tasks.filter(task => task.id !== id));
+  const handleRemoveTask = (id) => {
+    dispatch(removeTask(id));
   };
 
   return (
@@ -55,12 +46,12 @@ function App() {
       <Container className="app-container">
         <Row>
           <Col xs={12} md={activeTab === 'tasks' ? 12 : 6} className="form-column">
-            <TodoForm addTask={addTask} />
+            <TodoForm addTask={handleAddTask} />
           </Col>
           <Col xs={12} md={activeTab === 'tasks' ? 12 : 6} className="tasks-column">
             <TaskList 
               tasks={tasks} 
-              removeTask={removeTask}
+              removeTask={handleRemoveTask}
             />
           </Col>
         </Row>
