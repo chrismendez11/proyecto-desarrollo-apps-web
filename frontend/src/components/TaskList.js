@@ -18,7 +18,7 @@ function TaskList({ tasks, removeTask }) {
             </div>
             <div className="task-body">
               <strong>Description</strong>
-              <div className="task-description">{task.task}</div>
+              <div className="task-description">{task.description}</div>
             </div>
             <div className="task-footer">
               <strong>Due Date:</strong> {formatDate(task.dueDate)}
