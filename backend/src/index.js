@@ -24,7 +24,7 @@ const authMiddleware = (req, res, next) => {
 app.use(authMiddleware);
 
 app.get('/getTasks', (req, res) => {
-  res.json(tasks);
+  res.status(200).json(tasks);
 });
 
 app.post('/addTask', (req, res) => {
@@ -40,7 +40,7 @@ app.post('/addTask', (req, res) => {
   };
   
   tasks.push(newTask);
-  res.status(201).json(newTask);
+  res.status(200).json(newTask);
 });
 
 app.delete('/removeTask/:id', (req, res) => {
@@ -53,11 +53,11 @@ app.delete('/removeTask/:id', (req, res) => {
     return res.status(404).json({ error: 'Tarea no encontrada' });
   }
   
-  res.json({ message: 'Tarea eliminada correctamente' });
+  res.status(200).json({ message: 'Tarea eliminada correctamente' });
 });
 
 app.get('/getGoals', (req, res) => {
-  res.json(goals);
+  res.status(200).json(goals);
 });
 
 app.post('/addGoal', (req, res) => {
@@ -73,7 +73,7 @@ app.post('/addGoal', (req, res) => {
   };
   
   goals.push(newGoal);
-  res.status(201).json(newGoal);
+  res.status(200).json(newGoal);
 });
 
 app.delete('/removeGoal/:id', (req, res) => {
@@ -86,7 +86,7 @@ app.delete('/removeGoal/:id', (req, res) => {
     return res.status(404).json({ error: 'Meta no encontrada' });
   }
   
-  res.json({ message: 'Meta eliminada correctamente' });
+  res.status(200).json({ message: 'Meta eliminada correctamente' });
 });
 
 app.listen(PORT, () => {
